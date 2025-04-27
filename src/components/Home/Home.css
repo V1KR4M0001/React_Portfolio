@@ -1,0 +1,105 @@
+/* Home Section */
+.home {
+    min-height: 100vh;
+    padding: 100px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #f5f5f5;
+}
+
+/* Animation when visible */
+.show-animate {
+    animation: fadeInUp 1s ease forwards;
+}
+
+/* Home content */
+.home-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.home-content h1 span {
+    color: #007bff;
+}
+
+.text-animate h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.home-content p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+/* Button styles */
+.btn-box {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: 2px solid #007bff;
+    background: none;
+    color: #007bff;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: #007bff;
+    color: white;
+}
+
+/* Social links */
+.home-sci {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+}
+
+.home-sci a {
+    color: #333;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.home-sci a:hover {
+    color: #007bff;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .home-content h1 {
+        font-size: 2rem;
+    }
+
+    .text-animate h3 {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,92 @@
+/* Header main styles */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 10%;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* Sticky effect */
+.header.sticky {
+    background: #007bff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo */
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+/* Navigation bar */
+.navbar {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Nav links */
+.navbar a {
+    color: #333;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+}
+
+/* Active link */
+.navbar a.active,
+.navbar a:hover {
+    color: #007bff;
+}
+
+/* Theme toggle icon */
+.theme-toggle {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Menu icon (hamburger for mobile) */
+.menu-icon {
+    display: none;
+    font-size: 1.8rem;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Navbar active (for mobile) */
+.navbar.active {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+    }
+
+    .navbar {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar.active {
+        display: flex;
+    }
+}

@@ -1,0 +1,5 @@
+/* src/styles/GlobalStyles.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Copy all the CSS from the original style.css file here */
+/* Make sure to remove any JavaScript-specific animation code that will be handled by React */
