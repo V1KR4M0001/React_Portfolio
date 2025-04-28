@@ -5,7 +5,7 @@ import App from './App';
 import { ThemeProvider } from './context/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.createRoot(
+root.render(
   <React.StrictMode>
     <ThemeProvider>
       <App />

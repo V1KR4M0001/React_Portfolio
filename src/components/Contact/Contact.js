@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Contact.css';
 
 const Contact = () => {
+    const sectionRef = useRef(null);
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -9,6 +10,32 @@ const Contact = () => {
         subject: '',
         message: ''
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitMessage, setSubmitMessage] = useState('');
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show-animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,27 +45,46 @@ const Contact = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you would typically handle form submission, like sending to a backend
-        console.log('Form submitted:', formData);
-
-        // Reset form after submission
-        setFormData({
-            fullName: '',
-            email: '',
-            mobile: '',
-            subject: '',
-            message: ''
-        });
-
-        // Show success message to user
-        alert('Message sent successfully!');
+        setIsSubmitting(true);
+        setSubmitMessage('');
+        
+        try {
+            // Here you would typically handle form submission, like sending to a backend
+            console.log('Form submitted:', formData);
+            
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Reset form after submission
+            setFormData({
+                fullName: '',
+                email: '',
+                mobile: '',
+                subject: '',
+                message: ''
+            });
+            
+            // Show success message to user
+            setSubmitMessage('Message sent successfully!');
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setSubmitMessage('Failed to send message. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
-        <section className="contact" id="contact">
-            <h2 className="heading">Contact <span>Me!</span><span className="animate scroll" style={{ "--i": 1 }}></span></h2>
+        <section className="contact" id="contact" ref={sectionRef}>
+            <h2 className="heading">Contact <span>Me!</span></h2>
+
+            {submitMessage && (
+                <div className={`submit-message ${submitMessage.includes('Failed') ? 'error' : 'success'}`}>
+                    {submitMessage}
+                </div>
+            )}
 
             <form onSubmit={handleSubmit}>
                 <div className="input-box">
@@ -64,7 +110,6 @@ const Contact = () => {
                         />
                         <span className="focus"></span>
                     </div>
-                    <span className="animate scroll" style={{ "--i": 3 }}></span>
                 </div>
 
                 <div className="input-box">
@@ -90,7 +135,6 @@ const Contact = () => {
                         />
                         <span className="focus"></span>
                     </div>
-                    <span className="animate scroll" style={{ "--i": 5 }}></span>
                 </div>
 
                 <div className="textarea-field">
@@ -104,12 +148,16 @@ const Contact = () => {
                         required
                     ></textarea>
                     <span className="focus"></span>
-                    <span className="animate scroll" style={{ "--i": 7 }}></span>
                 </div>
 
                 <div className="btn-box btns">
-                    <button type="submit" className="btn">Submit</button>
-                    <span className="animate scroll" style={{ "--i": 9 }}></span>
+                    <button 
+                        type="submit" 
+                        className="btn" 
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? 'Sending...' : 'Submit'}
+                    </button>
                 </div>
             </form>
         </section>

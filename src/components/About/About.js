@@ -1,25 +1,30 @@
 import React, { useEffect, useRef } from 'react';
-import profileImage from '../../assets/images/photo.jpg';
-import resumePdf from '../../assets/files/CV.pdf';
-import './About.css'; // CSS is imported separately
+import './About.css';
 
 const About = () => {
     const sectionRef = useRef(null);
 
     useEffect(() => {
+        // Create IntersectionObserver to handle animations
         const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    sectionRef.current.classList.add('show-animate');
-                }
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show-animate');
+                        // Once the animation is triggered, we can stop observing this element
+                        observer.unobserve(entry.target);
+                    }
+                });
             },
-            { threshold: 0.1 }
+            { threshold: 0.2 } // 20% of the element must be visible
         );
 
+        // Start observing the section
         if (sectionRef.current) {
             observer.observe(sectionRef.current);
         }
 
+        // Clean up observer on component unmount
         return () => {
             if (sectionRef.current) {
                 observer.unobserve(sectionRef.current);
@@ -32,7 +37,13 @@ const About = () => {
             <h2 className="heading">About <span>Me</span></h2>
 
             <div className="about-img">
-                <img src={profileImage} alt="Vikram Singh" />
+                {/* Use a placeholder if the image can't be loaded */}
+                <img src="/path/to/profile-image.jpg" alt="Vikram Singh"
+                    onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://via.placeholder.com/200x200?text=V';
+                    }}
+                />
                 <span className="circle-spin"></span>
             </div>
 
@@ -47,7 +58,7 @@ const About = () => {
                 </p>
 
                 <div className="btn-box btns">
-                    <a href={resumePdf} className="btn" target="_blank" rel="noreferrer">My Resume</a>
+                    <a href="#" className="btn" target="_blank" rel="noreferrer">My Resume</a>
                 </div>
             </div>
         </section>

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 import { FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa';
-import './Header.css'; // Importing the CSS
+import './Header.css';
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +24,7 @@ const Header = () => {
             });
 
             // Sticky header
-            const header = document.querySelector('header');
+            const header = document.querySelector('.header');
             if (header) {
                 header.classList.toggle('sticky', window.scrollY > 100);
             }
@@ -38,23 +38,28 @@ const Header = () => {
         setMenuOpen(!menuOpen);
     };
 
+    // Close menu when a link is clicked
+    const handleLinkClick = () => {
+        if (menuOpen) setMenuOpen(false);
+    };
+
     return (
-        <header className="header">
-            <a href="#" className="logo">Vikram Singh</a>
+        <header className={`header ${isDarkTheme ? 'dark' : ''}`}>
+            <a href="#home" className="logo">Vikram Singh</a>
 
             <div className="menu-icon" onClick={toggleMenu}>
                 {menuOpen ? <FaTimes /> : <FaBars />}
             </div>
 
             <nav className={`navbar ${menuOpen ? 'active' : ''}`}>
-                <a href="#home" className={activeSection === 'home' ? 'active' : ''}>Home</a>
-                <a href="#about" className={activeSection === 'about' ? 'active' : ''}>About</a>
-                <a href="#education" className={activeSection === 'education' ? 'active' : ''}>Education</a>
-                <a href="#skills" className={activeSection === 'skills' ? 'active' : ''}>Skills</a>
-                <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>Contact</a>
-                <a href="#" className="theme-toggle" onClick={toggleTheme}>
-                    {isDarkTheme ? <FaMoon /> : <FaSun />}
-                </a>
+                <a href="#home" className={activeSection === 'home' ? 'active' : ''} onClick={handleLinkClick}>Home</a>
+                <a href="#about" className={activeSection === 'about' ? 'active' : ''} onClick={handleLinkClick}>About</a>
+                <a href="#education" className={activeSection === 'education' ? 'active' : ''} onClick={handleLinkClick}>Education</a>
+                <a href="#skills" className={activeSection === 'skills' ? 'active' : ''} onClick={handleLinkClick}>Skills</a>
+                <a href="#contact" className={activeSection === 'contact' ? 'active' : ''} onClick={handleLinkClick}>Contact</a>
+                <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+                    {isDarkTheme ? <FaSun /> : <FaMoon />}
+                </button>
             </nav>
         </header>
     );
