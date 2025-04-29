@@ -37,12 +37,10 @@ const About = () => {
             <h2 className="heading">About <span>Me</span></h2>
 
             <div className="about-img">
-                {/* Use a placeholder if the image can't be loaded */}
-                <img src="/path/to/profile-image.jpg" alt="Vikram Singh"
-                    onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = 'https://via.placeholder.com/200x200?text=V';
-                    }}
+                {/* Fixed: Using a direct placeholder instead of a failing path with fallback */}
+                <img 
+                    src="/api/placeholder/200/200?text=V" 
+                    alt="Vikram Singh" 
                 />
                 <span className="circle-spin"></span>
             </div>
